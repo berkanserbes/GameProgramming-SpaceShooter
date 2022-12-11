@@ -6,9 +6,12 @@ public class Enemy_sc : MonoBehaviour
 {
     [SerializeField]
     private float speed = 4.0f;
-
-    private Player_sc player_sc;
     [SerializeField]
+    private Player_sc player_sc;
+    public float fireRate = 0.5f;
+    public float nextFire = 0f;
+
+    public GameObject EnemyLaserPrefab;
     
 
     // Start is called before the first frame update
@@ -26,6 +29,14 @@ public class Enemy_sc : MonoBehaviour
             float randomX = Random.Range(-14f, 14f);
             transform.position = new Vector3(randomX, 7.4f, 0);
         }
+        if ( Time.time > nextFire) {
+            nextFire = Time.time + fireRate;
+            EnemyFire();
+        }
+    }
+
+    void EnemyFire() {
+         Instantiate(EnemyLaserPrefab, transform.position+new Vector3(0, -1.2f, 0), Quaternion.identity);
     }
 
     void OnTriggerEnter2D(Collider2D other)
