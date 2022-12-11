@@ -21,4 +21,14 @@ public class EnemyLaser_sc : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
+    void OnTriggerEnter2D(Collider2D other){
+        if(other.tag == "Player") {
+            Player_sc player = other.transform.GetComponent<Player_sc>();
+            if (player != null) {
+                player.Damage();
+            }
+            Destroy(this.gameObject);
+        }
+    }
 }
